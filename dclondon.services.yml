@@ -1,0 +1,4 @@
+services:
+  dclondon.speaker_greeter:
+    class: Drupal\dclondon\Service\SpeakerGreeter
+    tags: []

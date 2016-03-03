@@ -2,8 +2,11 @@
 
 namespace Drupal\dclondon\Service;
 
-class SpeakerGreeter {
+class SpeakerGreeter implements GreeterInterface {
 
+  /**
+   * {@inheritdoc}
+   */
   public function greet($name) {
     return ucfirst($name);
   }

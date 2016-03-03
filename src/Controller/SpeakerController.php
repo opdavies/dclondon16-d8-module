@@ -2,9 +2,20 @@
 
 namespace Drupal\dclondon\Controller;
 
-use Drupal\dclondon\Service\SpeakerGreeter;
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\dclondon\Service\GreeterInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class SpeakerController {
+class SpeakerController extends ControllerBase {
+
+  /**
+   * @var GreeterInterface
+   */
+  private $greeter;
+
+  public function __construct(GreeterInterface $greeter) {
+    $this->greeter = $greeter;
+  }
 
   /**
    * Say hello to a speaker.
@@ -16,12 +27,20 @@ class SpeakerController {
    *   A render array.
    */
   public function hello($name) {
-    $greeter = new SpeakerGreeter();
-    $name = $greeter->greet($name);
+    $name = $this->greeter->greet($name);
 
     return [
       '#markup' => t('Hello, @name.', ['@name' => $name]),
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    $speakerGreeter = $container->get('dclondon.speaker_greeter');
+
+    return new static($speakerGreeter);
   }
 
 }
