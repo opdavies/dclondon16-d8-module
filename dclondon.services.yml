@@ -2,3 +2,8 @@ services:
   dclondon.speaker_greeter:
     class: Drupal\dclondon\Service\SpeakerGreeter
     tags: []
+    arguments:
+      - %dclondon.speaker_greeter.shout%
+
+parameters:
+  dclondon.speaker_greeter.shout: false
