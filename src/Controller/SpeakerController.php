@@ -2,6 +2,8 @@
 
 namespace Drupal\dclondon\Controller;
 
+use Drupal\dclondon\Service\SpeakerGreeter;
+
 class SpeakerController {
 
   /**
@@ -14,6 +16,9 @@ class SpeakerController {
    *   A render array.
    */
   public function hello($name) {
+    $greeter = new SpeakerGreeter();
+    $name = $greeter->greet($name);
+
     return [
       '#markup' => t('Hello, @name.', ['@name' => $name]),
     ];
