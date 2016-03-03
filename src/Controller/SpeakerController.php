@@ -3,6 +3,7 @@
 namespace Drupal\dclondon\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\dclondon\Service\GreeterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -13,8 +14,14 @@ class SpeakerController extends ControllerBase {
    */
   private $greeter;
 
-  public function __construct(GreeterInterface $greeter) {
+  /**
+   * @var LoggerChannelFactoryInterface
+   */
+  private $logger;
+
+  public function __construct(GreeterInterface $greeter, LoggerChannelFactoryInterface $logger) {
     $this->greeter = $greeter;
+    $this->logger = $logger;
   }
 
   /**
@@ -29,6 +36,8 @@ class SpeakerController extends ControllerBase {
   public function hello($name) {
     $name = $this->greeter->greet($name);
 
+    $this->logger->get('default')->info($name);
+
     return [
       '#markup' => t('Hello, @name.', ['@name' => $name]),
     ];
@@ -39,8 +48,9 @@ class SpeakerController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     $speakerGreeter = $container->get('dclondon.speaker_greeter');
+    $logger = $container->get('logger.factory');
 
-    return new static($speakerGreeter);
+    return new static($speakerGreeter, $logger);
   }
 
 }
