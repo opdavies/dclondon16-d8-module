@@ -5,3 +5,11 @@ dclondon.speakers_hello:
     _controller: Drupal\dclondon\Controller\SpeakerController::hello
   requirements:
     _permission: 'access content'
+
+dclondon.config:
+  path: '/admin/config/content/dclondon'
+  defaults:
+    _form: '\Drupal\dclondon\Controller\DcLondonSettingsController'
+    _title: 'DrupalCamp London configuration'
+  requirements:
+    _permission: 'administer site configuration'
