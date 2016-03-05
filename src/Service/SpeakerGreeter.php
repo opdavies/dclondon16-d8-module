@@ -13,7 +13,6 @@ class SpeakerGreeter implements GreeterInterface {
     $this->shout = $shout;
   }
 
-
   /**
    * {@inheritdoc}
    */
