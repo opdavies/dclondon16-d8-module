@@ -1,8 +1,8 @@
 dclondon.speakers_hello:
-  path: speakers/{name}
+  path: 'speakers/{name}'
   defaults:
-    _title: Speakers
-    _controller: Drupal\dclondon\Controller\SpeakerController::hello
+    _controller: '\Drupal\dclondon\Controller\SpeakerController::hello'
+    _title: 'Speakers'
   requirements:
     _permission: 'access content'
 
