@@ -39,7 +39,7 @@ class SpeakerController extends ControllerBase {
     $this->logger->get('default')->info($name);
 
     return [
-      '#markup' => t(
+      '#markup' => $this->t(
         \Drupal::config('dclondon.settings')->get('greeter_text'),
         ['@name' => $name]
       ),
